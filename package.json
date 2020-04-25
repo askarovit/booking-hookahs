@@ -1,0 +1,30 @@
+{
+  "name": "testwork_herobrands",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/server.js",
+  "scripts": {
+    "webpack:prod": "rm -rf ./build && clear && webpack --config ./webpack.config.js",
+    "start:dev": "rm -rf ./dist && tsc && node ./dist/server.js",
+    "start": "npm run webpack:prod && node ./build/server.js",
+    "start:prod": "rm -rf ./build && npm run webpack:prod && node build/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.6",
+    "@types/mysql": "^2.15.10",
+    "@types/node": "^13.13.2",
+    "copy-webpack-plugin": "^5.1.1",
+    "file-loader": "^6.0.0",
+    "ts-loader": "^7.0.1",
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}

@@ -1,0 +1,32 @@
+version: '3.2'
+
+services:
+    mysql:
+        image: mysql:8
+        container_name: mysql-container
+        volumes:
+          - "./.mysql-data/db:/var/lib/mysql"
+        restart: always
+        ports:
+          - ${MYSQL_PORT}:3306
+        environment:
+          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+          MYSQL_DATABASE: ${MYSQL_DATABASE}
+          MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    backend:
+        build: .
+        container_name: backend-container
+        restart: always
+        environment:
+          - PORT=${SERVER_PORT}
+
+          - MYSQL_DRIVER=${MYSQL_DRIVER}
+          - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
+          - DB_USERNAME=${MYSQL_USER}
+          - DB_NAME=${MYSQL_DATABASE}
+
+        ports:
+          - ${SERVER_PORT}:${SERVER_PORT}
+        depends_on:
+           - mysql

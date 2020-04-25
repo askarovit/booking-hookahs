@@ -5,7 +5,8 @@ const preconfiguration: Array<Promise<any>> = [];
 
 preconfiguration.push(dbConnection());
 preconfiguration.push(pool.runSQLFile('create_tables.sql'));
-preconfiguration.push(pool.runSQLFile('procedures.sql'));
+preconfiguration.push(pool.runSQLFile('make_order_hookah_procedure.sql'));
+preconfiguration.push(pool.runSQLFile('get_free_hookah_procedure.sql'));
 
 Promise.all(preconfiguration)
   .then(() => {

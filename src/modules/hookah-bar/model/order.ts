@@ -1,7 +1,7 @@
 import { IHookahModel } from './hookah';
 
 export interface IOrderModel {
-  id: number;
+  id?: number;
   customer: string;
   date: Date;
   amount_people: number;

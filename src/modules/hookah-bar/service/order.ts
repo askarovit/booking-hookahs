@@ -9,8 +9,15 @@ class OrderService {
     return data;
   };
 
-  public async makeOrder(amount_people: number): Promise<any> {
-    const data = await pool.query(queries.makeOrder, [amount_people]);
+  public async makeOrder(body): Promise<any> {
+    const { customer, date, amount_people } = body;
+    const data = await pool.query(queries.makeOrder, [customer, date, amount_people]);
+    return data;
+  }
+
+  public async getFreeHookah(body): Promise<any> {
+    const { from, to, amount_people } = body;
+    const data = await pool.query(queries.getFreeHookah, [from, to, parseInt(amount_people, 10)]);
     return data;
   }
 }

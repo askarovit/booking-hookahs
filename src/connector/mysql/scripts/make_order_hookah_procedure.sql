@@ -1,13 +1,27 @@
-DROP PROCEDURE IF EXISTS `MakeOrderHookah`;
+DROP PROCEDURE IF EXISTS `make_order_hookah_procedure`;
 
-CREATE PROCEDURE MakeOrderHookah(
-	IN amount_people_param tinyint,
+CREATE PROCEDURE make_order_hookah_procedure(
+    IN customer_param varchar(45),
     IN date_param datetime,
-    IN customer_param varchar(45)
+    IN amount_people_param tinyint
 )
-BEGIN
+sp: BEGIN
 	DECLARE amount_tube TINYINT default 0;
     DECLARE new_order_id TINYINT default 0;
+    DECLARE CustomerIsAlreadyBooking BOOLEAN default 0;
+
+    -- search for orders
+    SET CustomerIsAlreadyBooking = (SELECT EXISTS (
+        SELECT *
+        FROM network_hookah_db.`order` as o
+        WHERE o.customer = customer_param
+    ));
+
+    IF (CustomerIsAlreadyBooking = 1) THEN
+        SELECT 'This Customer is already booked' as message;
+        LEAVE sp;
+    END IF;
+
 
 	CREATE TEMPORARY TABLE order_hookahs_temporary (
 		id tinyint(11),
@@ -50,6 +64,7 @@ BEGIN
 					WHERE orh.id = LAST_INSERT_ID()
                 );
 
+                -- match the number of tubes with the number of customers
 				UNTIL amount_people_param <= amount_tube
 			END REPEAT;
 			SELECT 'The hookah was booked successfully' as message;

@@ -6,5 +6,6 @@ export default {
     WHERE date >= now()
     ORDER BY date;
   `,
-  makeOrder: `CALL MakeOrderHookah(?,?,?)` // arguments : customer
+  makeOrder: `CALL make_order_hookah_procedure(?,?,?)`,
+  getFreeHookah: `CALL get_free_hookahs_procedure(?,?,?)`
 }

@@ -38,7 +38,8 @@ module.exports = {
       connector: path.resolve(DIR, 'src/connector'),
       service: path.resolve(DIR, 'src/modules/hookah-bar/service'),
       controller: path.resolve(DIR, 'src/modules/hookah-bar/controller'),
-      model: path.resolve(DIR, 'src/modules/hookah-bar/model')
+      model: path.resolve(DIR, 'src/modules/hookah-bar/model'),
+      middleware: path.resolve(DIR, 'src/middleware')
     }
   },
   plugins: [

@@ -29,8 +29,7 @@ class PoolConnection implements IDatabaseDriver {
     try {
        return await this.pool.query(sqlScript, arg);
     } catch (err) {
-      console.log('\n\n Err: ', err);
-      console.log(' ------------------------ ');
+      console.log('\nErr: ', err.message);
       throw { err }
     }
   };

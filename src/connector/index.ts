@@ -3,7 +3,7 @@ import { PoolConnectionType, IDataConnection } from './utils';
 export let pool: PoolConnectionType | null;
 
 export const dbConnection = async (data?: IDataConnection): Promise<PoolConnectionType | null> => {
-  if (true || process.env.MYSQL_DRIVER) {
+  if (process.env.MYSQL_DRIVER) {
     const driver = require('./mysql').default;
     pool = new driver(data);
   }

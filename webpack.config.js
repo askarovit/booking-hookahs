@@ -45,6 +45,6 @@ module.exports = {
   plugins: [
     new CopyPlugin([
       { from: './src/connector/mysql/scripts/*.sql', to: './scripts/[name].sql' },
-    ]),
+    ])
   ]
 };

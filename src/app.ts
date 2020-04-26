@@ -1,5 +1,6 @@
 import express, { Application }  from 'express';
 import { json, urlencoded } from 'body-parser';
+import { errorHandler } from 'middleware/error-handler';
 import router from './router';
 
 class App {
@@ -9,10 +10,9 @@ class App {
   private constructor() {
     App.app = express();
     App.app.use(json());
-    App.app.use(urlencoded({
-      extended: false
-    }));
+    App.app.use(urlencoded({extended: false}));
     App.app.use(router);
+    App.app.use(errorHandler);
   }
 
   public static getApp() {

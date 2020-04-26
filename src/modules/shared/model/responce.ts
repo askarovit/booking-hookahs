@@ -1,11 +1,11 @@
 export interface ResponseEntityParams<T> {
-  errors?: Array<string>;
+  errors?: Array<string> | string;
   data?: T;
 }
 
 export class ResponseEntity<T> {
   success: boolean;
-  errors?: Array<string>;
+  errors?: Array<string> | string;
   data?: T;
 
   constructor(params: ResponseEntityParams<T> = {}) {

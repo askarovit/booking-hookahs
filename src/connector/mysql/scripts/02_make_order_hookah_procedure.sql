@@ -10,7 +10,7 @@ sp: BEGIN
     DECLARE new_order_id TINYINT default 0;
     DECLARE CustomerIsAlreadyBooking BOOLEAN default 0;
 
-    -- search for orders
+    -- Search orders by customer name
     SET CustomerIsAlreadyBooking = (SELECT EXISTS (
         SELECT *
         FROM network_hookah_db.`order` as o
@@ -18,17 +18,18 @@ sp: BEGIN
     ));
 
     IF (CustomerIsAlreadyBooking = 1) THEN
+        -- The client is found and exit the procedure
         SELECT 'This Customer is already booked' as message;
         LEAVE sp;
     END IF;
 
-
+    -- Create a temporary table with possible hookahs
 	CREATE TEMPORARY TABLE order_hookahs_temporary (
 		id tinyint(11),
         amount_tube tinyint(2)
 	);
 
-    -- Getting free hookahs for ordering
+    -- Inserting into temporary table a possible hookahs
 	INSERT INTO order_hookahs_temporary (id, amount_tube)
     SELECT H.id, H.amount_tube
 	FROM ( SELECT * FROM network_hookah_db.`hookah` AS h WHERE h.amount_tube <= amount_people_param) AS H
@@ -41,13 +42,16 @@ sp: BEGIN
     ORDER BY H.amount_tube DESC
     ;
 
+    -- @totam_amount_tube - Count the number of free hookahs to check the ability to serve all customers
     SET @totam_amount_tube = (SELECT SUM(order_hookahs_temporary.amount_tube) FROM order_hookahs_temporary);
 
 	IF (@totam_amount_tube >= amount_people_param)
 		THEN
+		    -- Creating new order into order table and getting ID order "new_order_id"
 			INSERT INTO  network_hookah_db.`order` (customer, date, amount_people) VALUES (customer_param, date_param, amount_people_param);
 			SET new_order_id = (SELECT LAST_INSERT_ID());
 
+            -- Creating a loop that will add a link to the table "order_hookah" for customer and order.
 			REPEAT
 				INSERT INTO network_hookah_db.`order_hookah` (hookah_id, order_id)
 					SELECT h.id, new_order_id
@@ -64,7 +68,7 @@ sp: BEGIN
 					WHERE orh.id = LAST_INSERT_ID()
                 );
 
-                -- match the number of tubes with the number of customers
+                -- Match the number of tubes with the number of customers
 				UNTIL amount_people_param <= amount_tube
 			END REPEAT;
 			SELECT 'The hookah was booked successfully' as message;

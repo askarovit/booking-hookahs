@@ -17,7 +17,7 @@ describe('Shared module: Checking response entity.', () => {
     axios.mockClear();
   });
 
-  test('Should return resonse "Response Entity Model" with Array of Bars.', async () => {
+  test('Should return response "Response Entity Model" with Array of Bars.', async () => {
       let data, result: ResponseEntity<any>;
 
       axios.get.mockReturnValue(response);

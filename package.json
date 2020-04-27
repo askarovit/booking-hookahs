@@ -8,9 +8,9 @@
     "webpack:dev": "rm -rf ./build && ./node_modules/webpack/bin/webpack.js --env.service=dev",
     "webpack:stage": "rm -rf ./build && ./node_modules/webpack/bin/webpack.js --env.service=stage --progress --colors",
     "webpack:prod": "rm -rf ./build && ./node_modules/webpack/bin/webpack.js --env.service=prod",
-    "start:dev": "npm run webpack:dev && node ./build/server.js",
+    "start:dev": "npm run webpack:dev && npm run test && node ./build/server.js",
     "start:prod": "npm run webpack:prod && node build/server.js",
-    "start:stage": "npm run webpack:stage && node build/server.js",
+    "start:stage": "npm run webpack:stage && npm run test  && node build/server.js",
     "start": "npm run start:dev"
   },
   "author": "",

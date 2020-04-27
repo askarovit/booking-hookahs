@@ -5,10 +5,13 @@
   "main": "build/server.js",
   "scripts": {
     "test": "jest",
-    "webpack:prod": "rm -rf ./build && clear && webpack --config ./webpack.config.js",
-    "start:dev": "rm -rf ./dist && tsc && node ./dist/server.js",
-    "start": "npm run webpack:prod && node ./build/server.js",
-    "start:prod": "rm -rf ./build && npm run webpack:prod && node build/server.js"
+    "webpack:dev": "rm -rf ./build && ./node_modules/webpack/bin/webpack.js --env.service=dev",
+    "webpack:stage": "rm -rf ./build && ./node_modules/webpack/bin/webpack.js --env.service=stage --progress --colors",
+    "webpack:prod": "rm -rf ./build && ./node_modules/webpack/bin/webpack.js --env.service=prod",
+    "start:dev": "npm run webpack:dev && node ./build/server.js",
+    "start:prod": "npm run webpack:prod && node build/server.js",
+    "start:stage": "npm run webpack:stage && node build/server.js",
+    "start": "npm run start:dev"
   },
   "author": "",
   "license": "ISC",
@@ -36,6 +39,7 @@
     "@types/node": "^13.13.2",
     "axios": "^0.19.2",
     "copy-webpack-plugin": "^5.1.1",
+    "dotenv-webpack": "^1.7.0",
     "file-loader": "^6.0.0",
     "jest": "^25.4.0",
     "ts-jest": "^25.4.0",

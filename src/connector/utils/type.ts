@@ -1,6 +1,6 @@
 
 export type PoolConnectionType = {
   query(req: string, arg?: any);
-  runSQLFile(filename: string);
+  runMigrateFile(filename: string, type: string);
   closeConnection();
 }

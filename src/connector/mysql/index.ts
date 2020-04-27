@@ -1,6 +1,6 @@
 import { join } from 'path';
 import { promisify } from 'util';
-import { statSync, readFileSync } from 'fs';
+import { statSync, readFileSync, readdirSync } from 'fs';
 import { createPool} from 'mysql';
 import { IDatabaseDriver, IMysqlDataConnection } from '../utils';
 
@@ -10,9 +10,9 @@ class PoolConnection implements IDatabaseDriver {
   /** Config for PROD and STAGE environment */
   private readonly config: IMysqlDataConnection = {
     host: 'mysql-container',
-    user:  process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database:  process.env.DB_NAME,
+    user:  process.env.MYSQL_USER,
+    password: process.env.MYSQL_ROOT_PASSWORD,
+    database:  process.env.MYSQL_DATABASE,
     multipleStatements: true
   };
 
@@ -34,14 +34,31 @@ class PoolConnection implements IDatabaseDriver {
     }
   };
 
-  runSQLFile = async (filename: string) => {
-    const absolutePath: string = join(`build/scripts`, filename);
-    const isFile: boolean = statSync(absolutePath).isFile() && /\.sql$/.test(absolutePath);
+  runMigrateFile = async (filename: string, type: string): Promise<boolean> => {
+    const DIR = type === 'seed' ? 'build/seed' : 'build/scripts';
+    let listFileForMigrate = [];
 
-    if (isFile) {
-      const sqlQuery = readFileSync(absolutePath, 'utf8');
+    if (filename === '*') {
+      readdirSync(DIR)
+        .sort()
+        .forEach((file => {
+          const absolutePath = join(DIR, file);
+          this.isFileSQL(absolutePath) ? listFileForMigrate.push(absolutePath) : false;
+        }))
+    } else {
+      const absolutePath: string = join(DIR, filename);
+      this.isFileSQL(absolutePath) ? listFileForMigrate.push(absolutePath) : false;
+    }
+
+    for(let file of listFileForMigrate) {
+      const sqlQuery = readFileSync(file, 'utf8');
       await this.pool.query(sqlQuery);
     }
+    return true;
+  };
+
+  isFileSQL = (path: string) => {
+    return statSync(path).isFile() && /\.sql$/.test(path);
   };
 
   closeConnection() {

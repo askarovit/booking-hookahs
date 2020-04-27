@@ -13,6 +13,6 @@ export interface IMysqlDataConnection extends IDataConnection {
 
 export interface IDatabaseDriver {
   query(req: string, arg?: any);
-  runSQLFile(req: string, body: any);
+  runMigrateFile(req: string, type: string);
   closeConnection();
 }

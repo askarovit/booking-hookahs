@@ -1,4 +1,9 @@
-INSERT INTO `bar` (`id`, `title`) VALUES
+DELETE FROM network_hookah_db.`order`;
+DELETE FROM network_hookah_db.`order_hookah`;
+DELETE FROM network_hookah_db.`hookah`;
+DELETE FROM network_hookah_db.`bar`;
+
+INSERT INTO network_hookah_db.`bar` (`id`, `title`) VALUES
 (1, 'Bar #1'),
 (2, 'Bar #2'),
 (3, 'Bar #3'),
@@ -9,7 +14,7 @@ INSERT INTO `bar` (`id`, `title`) VALUES
 (8, 'Bar #8'),
 (9, 'Bar #9');
 
-INSERT INTO `hookah` (`id`, `title`, `amount_tube`, `bar_id`) VALUES
+INSERT INTO network_hookah_db.`hookah` (`id`, `title`, `amount_tube`, `bar_id`) VALUES
 (1, 'Hookah 1', 2, 1),
 (2, 'Hookah 2', 4, 1),
 (3, 'Hookah 3', 2, 1),
@@ -32,12 +37,12 @@ INSERT INTO `hookah` (`id`, `title`, `amount_tube`, `bar_id`) VALUES
 (20, 'Hookah 20', 4, 6),
 (21, 'Hookah 21', 1, 6);
 
-INSERT INTO `order` (`id`, `customer`, `date`, `amount_people`) VALUES
+INSERT INTO network_hookah_db.`order` (`id`, `customer`, `date`, `amount_people`) VALUES
 (1, 'Tommy', (NOW() + INTERVAL 1 hour), 2),
 (2, 'Capitan Marvel', (NOW() + INTERVAL 3 hour), 4),
 (3, 'Hulk', (NOW() - INTERVAL 20 minute), 2);
 
-INSERT INTO `order_hookah` (`id`, `hookah_id`, `order_id`) VALUES
+INSERT INTO network_hookah_db.`order_hookah` (`id`, `hookah_id`, `order_id`) VALUES
 (1, 1, 1),
 (2, 2, 2),
 (3, 6, 3);

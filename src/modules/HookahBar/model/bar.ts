@@ -1,5 +1,5 @@
 export interface IBarModel {
-  id: number;
+  id?: number;
   title: string
 }
 

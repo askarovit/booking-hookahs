@@ -8,7 +8,7 @@ enum METHOD_REQUEST {
     PATCH = 'body'
 }
 
-export const validate = (schemaName: string): any => {
+export const validate = (schemaName: string): Function => {
     return function (target: any, propertyName: string, descriptor: PropertyDescriptor) {
         let fn = descriptor.value;
         return {
@@ -23,10 +23,10 @@ export const validate = (schemaName: string): any => {
     }
 };
 
-const validator = (name, req) => {
+const validator = (name, req): Array<string> => {
     const { error } = schemas[name].validate(req[METHOD_REQUEST[req.method]], { abortEarly: false });
     if (!error) {
-        return ;
+        return;
     }
     return error.details.map(err => err.message);
 };

@@ -1,5 +1,5 @@
 export interface IHookahModel {
-  id: number;
+  id?: number;
   title: string,
   amount_tube: number,
   bar_id: number | null

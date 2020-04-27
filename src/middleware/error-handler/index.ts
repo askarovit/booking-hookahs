@@ -1,6 +1,6 @@
 import { ResponseEntity } from 'shared/model/responce';
 
-export const errorHandler = async (err, req, res, next) => {
+export const errorHandler = async (err, req, res, next): Promise<void> => {
   const { message, sqlMessage } = err.err;
   console.log(`Handler Error|  ${ message | sqlMessage }`);
   res

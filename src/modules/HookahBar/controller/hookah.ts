@@ -8,9 +8,9 @@ import { validate } from 'middleware/validate';
 class HookahController extends BaseController {
 
   @validate('GET_LIST_HOOKAHS')
-  async getList(req: Request, res: Response, next: NextFunction) {
+  async getList(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const data = await service.getHookahs();
+      const data: Array<IHookahModel> = await service.getHookahs();
       const result = new ResponseEntity({ data });
 
       res.json(result)
@@ -20,9 +20,9 @@ class HookahController extends BaseController {
   }
 
   @validate('ADD_HOOKAH')
-  async createItem(req: Request, res: Response, next: NextFunction) {
+  async createItem(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const data:IHookahModel = await service.createHookah(req.body);
+      const data: IHookahModel = await service.createHookah(req.body);
       const result = new ResponseEntity({ data });
 
       res.json(result)
@@ -32,9 +32,9 @@ class HookahController extends BaseController {
   }
 
   @validate('REMOVE_HOOKAH')
-  async deleteItem(req: Request, res: Response, next: NextFunction) {
+  async deleteItem(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const data = await service.deleteHookah(req.body);
+      const data: { affectedRows: boolean } = await service.deleteHookah(req.body);
       const result = new ResponseEntity({ data });
 
       res.json(result)

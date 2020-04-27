@@ -8,9 +8,9 @@ import { validate } from 'middleware/validate';
 class BarController extends BaseController {
 
   @validate('GET_LIST_BAR')
-  async getList(req: Request, res: Response, next: NextFunction) {
+  async getList(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const data = await service.getBars();
+      const data: Array<IBarModel> = await service.getBars();
       const result = new ResponseEntity({ data });
 
       res.json(result);
@@ -20,9 +20,9 @@ class BarController extends BaseController {
   }
 
   @validate('ADD_BAR')
-  async createItem(req: Request, res: Response, next: NextFunction) {
+  async createItem(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const data:IBarModel = await service.createBar(req.body);
+      const data: IBarModel = await service.createBar(req.body);
       const result = new ResponseEntity({ data });
 
       res.json(result);
@@ -32,9 +32,9 @@ class BarController extends BaseController {
   }
 
   @validate('REMOVE_BAR')
-  async deleteItem(req: Request, res: Response, next: NextFunction) {
+  async deleteItem(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const data = await service.deleteBar(<string>req.query.title);
+      const data: { affectedRows: boolean } = await service.deleteBar(<string>req.query.title);
       const result = new ResponseEntity({ data });
 
       res.json(result)

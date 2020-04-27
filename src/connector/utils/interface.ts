@@ -1,4 +1,3 @@
-
 export interface IDataConnection {
   host: string,
   user: string,

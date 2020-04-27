@@ -11,6 +11,7 @@ router.use('/hookahs', HookahRouter);
 router.use('/orders', OrderRouter);
 
 router.use('*', (req: Request, res: Response) => {
+  console.log('=====================================');
   res
     .status(404)
     .json(new ResponseEntity({errors: 'Not found API.'}));

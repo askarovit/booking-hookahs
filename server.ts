@@ -7,13 +7,14 @@ preconfiguration.push(dbConnection());
 preconfiguration.push(pool.runMigrateFile('*', 'scripts'));
 
 /** Seeding a default values */
-process.env.NODE_ENV === 'development' ?
-  preconfiguration.push(pool.runMigrateFile('default.sql', 'seed')) : false;
+if (process.env.NODE_ENV === 'development') {
+  preconfiguration.push(pool.runMigrateFile('default.sql', 'seed'));
+}
 
 Promise.all(preconfiguration)
   .then(() => {
     app.listen(process.env.SERVER_PORT || 9996);
-    console.log(`[NODE environment - ${process.env.NODE_ENV}] \nServer ready ...`);
+    console.log(`[NODE ENV - ${process.env.NODE_ENV}] \nServer ready ...`);
   })
   .catch(err => {
     console.log(`[${Date.now()}] : [SERVER START ERROR] - ${ err } \n`);

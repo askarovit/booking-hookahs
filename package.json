@@ -4,7 +4,7 @@
   "description": "",
   "main": "build/server.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "webpack:dev": "rm -rf ./build && ./node_modules/webpack/bin/webpack.js --env.service=dev",
     "webpack:stage": "rm -rf ./build && ./node_modules/webpack/bin/webpack.js --env.service=stage --progress --colors",
     "webpack:prod": "rm -rf ./build && ./node_modules/webpack/bin/webpack.js --env.service=prod",
@@ -23,11 +23,23 @@
     ],
     "moduleDirectories": [
       "node_modules"
-    ]
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "coverageThreshold": {
+      "global": {
+        "global": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mysql": "^2.18.1"
   },

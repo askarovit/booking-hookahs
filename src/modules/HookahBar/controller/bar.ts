@@ -35,7 +35,7 @@ class BarController extends BaseController {
   async deleteItem(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      const { title } = <{title: string}> req.query;
+      const { title } = <{title: string}> req.body;
       const data: { affectedRows: boolean } = await service.deleteBar(title);
       const result = new ResponseEntity({ data });
 

@@ -13,7 +13,7 @@ class App {
     App.app.use(cors());
     App.app.use(json());
     App.app.use(urlencoded({extended: false}));
-    App.app.use(router);
+    App.app.use('/api', router);
     App.app.use(errorHandler);
   }
 

@@ -4,6 +4,10 @@ import { statSync, readFileSync, readdirSync } from 'fs';
 import { createPool} from 'mysql';
 import { IDatabaseDriver, IMysqlDataConnection } from '../utils';
 
+enum ListCodeErrors {
+  ER_DUP_ENTRY = 'Duplicate entry'
+}
+
 class PoolConnection implements IDatabaseDriver {
   private readonly pool;
 
@@ -29,7 +33,6 @@ class PoolConnection implements IDatabaseDriver {
     try {
        return await this.pool.query(sqlScript, arg);
     } catch (err) {
-      console.log('\nErr: ', err.message);
       throw { err }
     }
   };
@@ -60,6 +63,10 @@ class PoolConnection implements IDatabaseDriver {
   isFileSQL = (path: string): boolean => {
     return statSync(path).isFile() && /\.sql$/.test(path);
   };
+
+  messageError(code: string): string | null{
+    return ListCodeErrors[code];
+  }
 
   closeConnection(): void {
     if (this.pool) {

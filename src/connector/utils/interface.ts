@@ -14,4 +14,5 @@ export interface IDatabaseDriver {
   query(req: string, arg?: object | Array<string | number>);
   runMigrateFile(req: string, type: string);
   closeConnection(): void;
+  messageError?(code: string): string | null;
 }

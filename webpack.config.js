@@ -6,7 +6,8 @@ const DIR = path.resolve(__dirname);
 const baseConfig = {
   target: "node",
   entry: {
-    server: "./server.ts"
+    server: "./server.ts",
+    mysqlSeed: "./src/connector/mysql/seed/index.ts"
   },
   output: {
     path: `${DIR}/build/`,

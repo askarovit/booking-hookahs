@@ -80,7 +80,7 @@ req body:
 GET   http://localhost:9996/api/orders/customers
 ```
 
-***Get list of hookahs which  :***
+***Get list of hookahs which available:***
 ```
 GET   http://localhost:9996/api/orders/available-hookahs
 req query:

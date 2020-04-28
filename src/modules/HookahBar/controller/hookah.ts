@@ -27,7 +27,7 @@ class HookahController extends BaseController {
 
       res.json(result)
     } catch (err) {
-      next(err);
+      return next(err);
     }
   }
 

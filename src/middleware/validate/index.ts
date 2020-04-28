@@ -9,15 +9,15 @@ enum METHOD_REQUEST {
 }
 
 export const validate = (schemaName: string): Function => {
-    return function (target: any, propertyName: string, descriptor: PropertyDescriptor) {
-        let fn = descriptor.value;
+    return function (target: any, propertyName: string, descriptor: PropertyDescriptor): Record<string, any> {
+        const fn = descriptor.value;
         return {
-            value: function(req, res) {
+            value: function(req, res, next): Function {
                 const errors = validator(schemaName, req);
                 if (errors) {
                     return res.status(400).json(new ResponseEntity({ errors }))
                 }
-                return fn.call(this, req, res)
+                return fn.call(this, req, res, next)
             }
         };
     }

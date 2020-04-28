@@ -8,13 +8,13 @@ export const dbConnection = async (data?: IDataConnection): Promise<PoolConnecti
     pool = new driver(data);
   }
 
-  return !!pool ?
+  return Boolean(pool) ?
          Promise.resolve(pool) :
          Promise.reject('Not found any database driver.')
 };
 
 export const dbConnectionClose = async (): Promise<void> => {
-  if (!!pool) {
+  if (Boolean(pool)) {
     pool.closeConnection();
     pool = null;
   }

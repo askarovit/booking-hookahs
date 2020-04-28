@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import { BaseController } from 'shared/BaseController';
 import { ResponseEntity } from 'shared/model/responce';
 import { validate } from 'middleware/validate';
-import service, { IListCustomers, IFreeHookahQuery } from 'service/order';
-import { IOrderModel, OrderModel, IHookahModel } from 'model';
+import service, { IListCustomers } from 'service/order';
+import { IHookahModel } from 'model';
 
 class OrderController {
 
@@ -22,7 +21,7 @@ class OrderController {
   @validate('MAKE_ORDER')
   async makeOrder(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const data: { message: string } = await service.makeOrder(<IOrderModel>req.body);
+      const data: { message: string } = await service.makeOrder(req.body);
       const result = new ResponseEntity({ data });
 
       res.json(result);

@@ -1,7 +1,7 @@
 import app from './src/app';
 import { dbConnection, pool } from 'connector';
 
-const preconfiguration: Array<Promise<any>> = [];
+const preconfiguration: Array<Promise<{}>> = [];
 
 preconfiguration.push(dbConnection());
 preconfiguration.push(pool.runMigrateFile('*', 'scripts'));

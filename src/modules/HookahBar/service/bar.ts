@@ -3,8 +3,8 @@ import { IBarModel, BarModel } from 'model';
 import queries from './queries/bar';
 
 export interface IBarService {
-  getBars(): Promise<Array<IBarModel>>,
-  deleteBar(title: string): Promise<{affectedRows: boolean}>,
+  getBars(): Promise<Array<IBarModel>>;
+  deleteBar(title: string): Promise<{affectedRows: boolean}>;
   createBar(IBarModel): Promise<IBarModel>;
 }
 

@@ -25,7 +25,7 @@ class PoolConnection implements IDatabaseDriver {
       this.pool.query = promisify(this.pool.query);
   }
 
-  query = async (sqlScript: string, arg: object | Array<any>) => {
+  query = async (sqlScript: string, arg: object | Array<string | number>): Promise<{}> => {
     try {
        return await this.pool.query(sqlScript, arg);
     } catch (err) {
@@ -36,7 +36,7 @@ class PoolConnection implements IDatabaseDriver {
 
   runMigrateFile = async (filename: string, type: string): Promise<boolean> => {
     const DIR = type === 'seed' ? 'build/seed' : 'build/scripts';
-    let listFileForMigrate = [];
+    const listFileForMigrate = [];
 
     if (filename === '*') {
       readdirSync(DIR)
@@ -50,18 +50,18 @@ class PoolConnection implements IDatabaseDriver {
       this.isFileSQL(absolutePath) ? listFileForMigrate.push(absolutePath) : false;
     }
 
-    for(let file of listFileForMigrate) {
+    for(const file of listFileForMigrate) {
       const sqlQuery = readFileSync(file, 'utf8');
       await this.pool.query(sqlQuery);
     }
     return true;
   };
 
-  isFileSQL = (path: string) => {
+  isFileSQL = (path: string): boolean => {
     return statSync(path).isFile() && /\.sql$/.test(path);
   };
 
-  closeConnection() {
+  closeConnection(): void {
     if (this.pool) {
       this.pool.end();
     }

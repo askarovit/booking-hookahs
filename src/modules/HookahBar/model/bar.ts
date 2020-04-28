@@ -1,6 +1,6 @@
 export interface IBarModel {
   id?: number;
-  title: string
+  title: string;
 }
 
 export class BarModel {

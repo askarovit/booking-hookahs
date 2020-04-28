@@ -17,7 +17,7 @@ class App {
     App.app.use(errorHandler);
   }
 
-  public static getApp() {
+  public static getApp(): Application {
     if(!App.instance) {
       App.instance = new App();
     }

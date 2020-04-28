@@ -1,4 +1,4 @@
-export interface ResponseEntityParams<T> {
+export interface IResponseEntityParams<T> {
   errors?: Array<string> | string;
   data?: T;
 }
@@ -8,7 +8,7 @@ export class ResponseEntity<T> {
   errors?: Array<string> | string;
   data?: T;
 
-  constructor(params: ResponseEntityParams<T> = {}) {
+  constructor(params: IResponseEntityParams<T> = {}) {
     this.success = Boolean(params.errors) ? false : true;
     this.errors = params.errors ? params.errors : null;
     this.data = params.data ? params.data : null;

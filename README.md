@@ -33,7 +33,7 @@ $  npm run seed:mysql
 #### Bar
 ***Get list of bars:***
 ```
-GET   http://localhost:9996/api/ /bars
+GET   http://localhost:9996/api/bars
 ```
 ***Create a new bar:***
 ```

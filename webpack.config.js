@@ -1,6 +1,7 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const DIR = path.resolve(__dirname);
 const baseConfig = {
@@ -20,10 +21,6 @@ const baseConfig = {
         test: /\.ts(x)?$/,
         loader: "ts-loader",
         exclude: /node_modules/
-      },
-      {
-        test: /\.(.sql)$/i,
-        loader: 'file-loader'
       }
     ]
   },
@@ -66,7 +63,11 @@ const stageConfig = {
 const prodConfig = {
   mode: "production",
   optimization: {
-    minimize: true
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: { mangle: false }
+      })
+    ]
   }
 };
 

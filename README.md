@@ -18,7 +18,7 @@ $ docker-compose up --build -d
 ```
 ------------
 
-###To Seed database (MySQL) you need to:
+### To Seed database (MySQL) you need to:
 ``` sh
 $ docker exec -it backend-container sh
 $  npm run seed:mysql

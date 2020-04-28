@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `hookah`(
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
     `title` varchar(45) CHARACTER SET utf8 NOT NULL DEFAULT '',
     `amount_tube` tinyint(2) NOT NULL DEFAULT '0',
-    `bar_id` int(10) unsigned NOT NULL,
+    `bar_id` int(10) unsigned DEFAULT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY(`title`, `amount_tube`),
     CONSTRAINT `fk_bar_hookah` FOREIGN KEY (`bar_id`) REFERENCES `bar` (`id`) ON DELETE CASCADE
